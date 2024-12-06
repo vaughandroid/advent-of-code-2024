@@ -1,6 +1,8 @@
-import {InputLists} from "./loadInput.ts";
+import { InputLists } from "./loadInput.ts";
 
-export function calculateTotalDistance([leftList, rightList]: InputLists): number {
+export function calculateTotalDistance(
+  { leftList, rightList }: InputLists,
+): number {
   const leftSorted = leftList.sort();
   const rightSorted = rightList.sort();
 

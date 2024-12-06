@@ -1,4 +1,7 @@
-export type InputLists = [number[], number[]];
+export type InputLists = {
+  leftList: number[];
+  rightList: number[];
+};
 
 export function loadInput(filePath: string): InputLists {
   const input = Deno.readTextFileSync(`${import.meta.dirname}/${filePath}`);
@@ -11,5 +14,5 @@ export function loadInput(filePath: string): InputLists {
     rightList.push(Number.parseInt(right));
   });
 
-  return [leftList, rightList];
+  return { leftList, rightList };
 }
