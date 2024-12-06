@@ -1,7 +1,8 @@
 import { assert, assertEquals, assertFalse } from "@std/assert";
 import { loadReports } from "./loadReports.ts";
 import { isSafe } from "./isSafe.ts";
-import { countSafeReports } from "./countSafeReports.ts";
+import { countSafeDampenedReports, countSafeReports } from "./countSafeReports.ts";
+import { getDampenedReports } from "./getDampenedReports.ts";
 
 const reports = loadReports("testInput.txt");
 
@@ -43,4 +44,22 @@ Deno.test("isSafe", async (t) => {
 
 Deno.test("countSafeReports", () => {
   assertEquals(countSafeReports(reports), 2);
-})
+});
+
+Deno.test("getDampenedReports", () => {
+  const input = [1, 2, 3, 4, 5];
+
+  const output = getDampenedReports({ levels: input });
+
+  assertEquals(output, [
+    { levels: [2, 3, 4, 5] },
+    { levels: [1, 3, 4, 5] },
+    { levels: [1, 2, 4, 5] },
+    { levels: [1, 2, 3, 5] },
+    { levels: [1, 2, 3, 4] },
+  ]);
+});
+
+Deno.test("countSafeDampenedReports", () => {
+  assertEquals(countSafeDampenedReports(reports), 4);
+});
