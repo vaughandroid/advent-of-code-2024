@@ -5,7 +5,7 @@ import { calculateSimilarityScore } from "./calculateSimilarityScore.ts";
 
 const inputLists = loadInput("testInput.txt");
 
-Deno.test("parseInput", async (t) => {
+Deno.test("loadInput", async (t) => {
   const { leftList, rightList } = inputLists;
 
   await t.step("Left list contents are correct", () => {
