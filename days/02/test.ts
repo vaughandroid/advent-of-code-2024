@@ -1,7 +1,10 @@
 import { assert, assertEquals, assertFalse } from "@std/assert";
 import { loadReports } from "./loadReports.ts";
 import { isSafe } from "./isSafe.ts";
-import { countSafeDampenedReports, countSafeReports } from "./countSafeReports.ts";
+import {
+  countSafeDampenedReports,
+  countSafeReports,
+} from "./countSafeReports.ts";
 import { getDampenedReports } from "./getDampenedReports.ts";
 
 const reports = loadReports("testInput.txt");

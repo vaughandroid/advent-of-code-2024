@@ -1,5 +1,8 @@
 import { loadReports } from "./loadReports.ts";
-import {countSafeDampenedReports, countSafeReports} from "./countSafeReports.ts";
+import {
+  countSafeDampenedReports,
+  countSafeReports,
+} from "./countSafeReports.ts";
 
 if (import.meta.main) {
   const reports = loadReports("input.txt");
@@ -10,5 +13,7 @@ if (import.meta.main) {
 
   // Part 2
   const safeCountWithDampening = countSafeDampenedReports(reports);
-  console.log(`2.2: Safe report count (with dampening): ${safeCountWithDampening}`);
+  console.log(
+    `2.2: Safe report count (with dampening): ${safeCountWithDampening}`,
+  );
 }
