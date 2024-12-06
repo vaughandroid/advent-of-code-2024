@@ -1,4 +1,6 @@
-export function loadInput(filePath: string): [number[], number[]] {
+export type InputLists = [number[], number[]];
+
+export function loadInput(filePath: string): InputLists {
   const input = Deno.readTextFileSync(`${import.meta.dirname}/${filePath}`);
   const lines = input.trim().split("\n");
 

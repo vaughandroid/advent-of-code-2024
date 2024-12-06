@@ -1,5 +1,6 @@
 import { assertEquals } from "@std/assert";
 import { loadInput } from "./loadInput.ts";
+import {calculateTotalDistance} from "./calculateTotalDistance.ts";
 
 Deno.test("parseInput", async (t) => {
   const [leftList, rightList] = loadInput("testInput.txt");
@@ -12,3 +13,11 @@ Deno.test("parseInput", async (t) => {
     assertEquals(rightList, [4, 3, 5, 3, 9, 3]);
   });
 });
+
+Deno.test("calculateTotalDistance", () => {
+  const inputLists = loadInput("testInput.txt");
+
+  const totalDistance = calculateTotalDistance(inputLists);
+
+  assertEquals(totalDistance, 11);
+})
