@@ -2,7 +2,7 @@ export type Report = {
   levels: number[];
 };
 
-export function loadInput(filePath: string): Report[] {
+export function loadReports(filePath: string): Report[] {
   const input = Deno.readTextFileSync(`${import.meta.dirname}/${filePath}`);
   const lines = input.trim().split("\n");
 
