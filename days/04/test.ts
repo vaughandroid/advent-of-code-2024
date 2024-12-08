@@ -67,3 +67,9 @@ Deno.test("countWordInGrid", () => {
   const count = countWordInGrid("XMAS", grid);
   assertEquals(count, 18);
 });
+
+Deno.test("countXMas", () => {
+  const grid = loadGrid("testInput.txt");
+  const count = grid.countXMas();
+  assertEquals(count, 9);
+});

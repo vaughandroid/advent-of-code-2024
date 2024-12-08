@@ -32,13 +32,18 @@ export function isChar(maybeChar: string): maybeChar is Char {
     maybeChar.charCodeAt(0) <= "Z".charCodeAt(0);
 }
 
+type Coord = {
+  x: number;
+  y: number;
+};
+
 export class Grid {
   private readonly _grid: Char[][];
   constructor(grid: Char[][]) {
     this._grid = grid;
   }
 
-  charAt(x: number, y: number): Char {
+  charAt(x: number, y: number): Char | "" {
     return this._grid[y][x];
   }
 
@@ -76,7 +81,9 @@ export class Grid {
       const startX = Math.max(n - (this.height - 1), 0);
       let diagonal = "";
       for (
-        let x = startX, y = startY; x < this.width && y < this.height; x++, y++
+        let x = startX, y = startY;
+        x < this.width && y < this.height;
+        x++, y++
       ) {
         const char = this.charAt(x, y);
         diagonal += char;
@@ -94,25 +101,37 @@ export class Grid {
       yield diagonal;
     }
   }
+
+  *aCoords(): IterableIterator<Coord> {
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        if (this.charAt(x, y) === "A") {
+          yield { x, y };
+        }
+      }
+    }
+  }
+
+  isXMas({ x, y }: Coord): boolean {
+    if (x < 1 || x >= this.width - 1 || y < 1 || y >= this.height - 1) return false;
+
+    const diagonalA = this.charAt(x - 1, y - 1) + this.charAt(x, y) +
+      this.charAt(x + 1, y + 1);
+    const diagonalB = this.charAt(x - 1, y + 1) + this.charAt(x, y) +
+      this.charAt(x + 1, y - 1);
+
+    return this.charAt(x, y) === "A" &&
+      (diagonalA === "MAS" || diagonalA === "SAM") &&
+      (diagonalB === "MAS" || diagonalB === "SAM");
+  }
+
+  countXMas() {
+    let count = 0;
+    for (const coord of this.aCoords()) {
+      if (this.isXMas(coord)) {
+        count++;
+      }
+    }
+    return count;
+  }
 }
-
-/*
-  A B C
-  D E F
-  G H I
-
-  x+,y+
-  G     0 (0,2) y
-  DH    1 (0,1),(1,2) y
-  AEI   2 (0,0),(1,1),(2,2) xy
-  BF    3 (1,0),(2,1) x
-  C     4 (2,0) x
-
-  x+,y-
-  A     0 (0,0) y
-  DB    1 (0,1),(1,0) y
-  GEC   2 (0,2),(1,1)(2,0) xy
-  HF    3 (1,2),(2,1) x
-  I     4 (2,2) x
-
- */
